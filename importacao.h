@@ -30,8 +30,7 @@ int readRegister(char * buffer, int tam, FILE* binaryData){
     return strlen(registro);
 }
 
-int importacao(char* dados){
-
+int verificaVazio(char* dados){
     FILE* dadosTxt;
     if( (dadosTxt = fopen(dados, "r") ) == NULL ){
         printf("Algo deu errado na leitura do arquivo %s", dados);
@@ -39,9 +38,32 @@ int importacao(char* dados){
         exit(EXIT_FAILURE);
     }
 
+    char reg[TAM_MAX_REG];
+    if(fread(&reg, sizeof(reg), 1, dadosTxt) != 1){
+        // acabou os registros
+        return 0;
+    }
+    return 1;
+}
+
+int importacao(char* dados){
+
+    int vazio = verificaVazio(dados);
+    if(vazio == 0){
+        printf("\nArquivo de registros esta vazio");
+        return 0;
+    }
+
+    FILE* dadosTxt;
+    if( (dadosTxt = fopen(dados, "r") ) == NULL ){
+        printf("\nAlgo deu errado na leitura do arquivo %s", dados);
+        return 0;
+        exit(EXIT_FAILURE);
+    }
+
     FILE *dadosBinarios;
-    if( (dadosBinarios = fopen("dados","w+b") ) == NULL ){
-        printf("Algo deu errado na leitura do arquivo dados.dat");
+    if( (dadosBinarios = fopen("dados.dat","w+b") ) == NULL ){
+        printf("\nAlgo deu errado na leitura do arquivo dados.dat");
         return 0;
         exit(EXIT_FAILURE);
     }
