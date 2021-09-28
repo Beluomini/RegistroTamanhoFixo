@@ -2,22 +2,8 @@
 #include <stdlib.h>
 #include <string.h>
 
-short leia_reg(char * buffer, int tam, FILE* arq){
-    short comp_reg;
-
-    if (fread(&comp_reg, sizeof(comp_reg), 1, arq) == 0) {
-        return 0;
-    }
-
-    if (comp_reg < tam) {
-        fread(buffer, sizeof(char), comp_reg, arq);
-        buffer[comp_reg] = '\0';
-        return comp_reg;
-    } else {
-        printf("Buffer overflow\n");
-        return 0;
-    }
-}
+#define DELIM_STR "|"
+#define TAM_MAX_REG 64
 
 int main(int argc, char *argv[]) {
 
@@ -25,17 +11,23 @@ int main(int argc, char *argv[]) {
 
         printf("Modo de importacao ativado ... nome do arquivo = %s\n", argv[2]);
 
-        FILE *entrada;
-
-        if ((entrada = fopen(argv[2], "r")) == NULL) {
-            printf("Erro na abertura do arquivo --- programa abortado\n");
+        FILE *dados;
+        FILE *saida;
+        if( (dados = fopen(argv[2], "r") ) == NULL ){
+            printf("deu merda na leitura do arquivo");
             exit(EXIT_FAILURE);
         }
 
-        char buffer[999999];
-        short comp_reg = leia_reg(buffer, 999999, entrada);
-        printf(buffer);
-        fclose(entrada);
+        char reg[TAM_MAX_REG];
+        fread(&reg, sizeof(reg), 1, dados);
+
+        printf("%s\n", reg);
+        char* teste = strtok(reg, DELIM_STR);
+        printf("%s\n", teste);
+
+        fclose(dados);
+        printf("passei por tudo");
+        
 
     }else if(argc == 3 && strcmp(argv[1], "-e") == 0) {
 
@@ -51,7 +43,7 @@ int main(int argc, char *argv[]) {
 
         fprintf(stderr, "Argumentos incorretos!\n");
         fprintf(stderr, "Modo de uso:\n");
-        fprintf(stderr, "$ %s (-i|-e) nome_arquivo\n", argv[0]);
+        fprintf(stderr, "$ %s (-i|-e|-p) nome_arquivo\n", argv[0]);
         fprintf(stderr, "$ %s -p\n", argv[0]);
         exit(EXIT_FAILURE);
 

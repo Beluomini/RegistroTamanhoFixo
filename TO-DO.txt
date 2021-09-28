@@ -1,0 +1,4 @@
+- Ler 64 bits de um arquivo (candidatos.txt)
+- ler os campos desses 64 bits
+- pegar um registro
+- escrever no novo arquivo
