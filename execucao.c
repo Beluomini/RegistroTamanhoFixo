@@ -3,6 +3,7 @@
 #include <string.h>
 
 #include "tools.h"
+#include "busca.c"
 
 int execucaoMenu(){
     char opcao[TAM_MAX_REG+2];
@@ -17,6 +18,12 @@ int execucaoMenu(){
 
         if(strncmp(opcao, "b", 1) == 0){
             printf("\nEntrei no modo de busca\n");
+
+            int final = sizeof(opcao) - 2;
+            char parte[final];
+            memcpy(parte, &opcao[2], final);
+
+            int error = buscaPorChave(parte);
 
         }else if(strncmp(opcao, "i", 1) == 0){
             printf("\nEntrei no modo de insercao\n");
@@ -33,4 +40,6 @@ int execucaoMenu(){
     }while (strncmp(opcao, "0", 1) != 0);
 
     printf("\nMetodo de execucao finalizado");
+
+    return 0;
 }
