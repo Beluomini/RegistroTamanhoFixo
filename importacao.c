@@ -2,9 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define DELIM_CH '|'
-#define DELIM_STR "|"
-#define TAM_MAX_REG 64
+#include "tools.h"
 
 FILE* openReadFile(char *nome){
     FILE* dados;

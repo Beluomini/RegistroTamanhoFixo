@@ -2,8 +2,8 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "importacao.h"
-
+#include "importacao.c"
+#include "execucao.c"
 
 int main(int argc, char *argv[]) {
 
@@ -19,6 +19,8 @@ int main(int argc, char *argv[]) {
     }else if(argc == 3 && strcmp(argv[1], "-e") == 0) {
 
         printf("Modo de execucao de operacoes ativado ... nome do arquivo = %s\n", argv[2]);
+        execucaoMenu();
+
         //executa_operacoes(argv[2]);
 
     } else if (argc == 2 && strcmp(argv[1], "-p") == 0) {
