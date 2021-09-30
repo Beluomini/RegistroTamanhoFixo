@@ -2,16 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "tools.h"
-
-FILE* openReadFile(char *nome){
-    FILE* dados;
-    if( (dados = fopen(nome, "r") ) == NULL ){
-        printf("Algo deu errado na leitura do arquivo");
-        exit(EXIT_FAILURE);
-    }
-    return dados;
-} 
+#include "tools.h" 
 
 int readRegister(char * buffer, int tam, FILE* binaryData){
     char *pt;
