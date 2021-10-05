@@ -1,1 +1,1 @@
-.\"main.exe" -i candidatos.txt
+b 135220

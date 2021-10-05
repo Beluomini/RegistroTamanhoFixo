@@ -5,39 +5,45 @@
 #include "tools.h"
 #include "busca.c"
 
-int execucaoMenu(){
-    char opcao[TAM_MAX_REG+2];
-    do{
-        printf("\nMenu do modo de execucao:\n");
-        printf("\n0 - Sair");
-        printf("\nb <chave> - Buscar");
-        printf("\ni <registro> - Inserir");
-        printf("\nr <chave> - Remover");
-        printf("\nO que deseja fazer: ");
-        input(opcao, TAM_MAX_REG+2);
+int execucaoMenu(char* arq){
+    FILE *commands;
+    if( (commands = fopen(arq,"r") ) == NULL ){
+        printf("\nAlgo deu errado na leitura do arquivo commands.txt");
+        return 0;
+        exit(EXIT_FAILURE);
+    }
+    
+    char comando[TAM_MAX_REG+2];
+    int fim = fgets(comando, TAM_MAX_REG+2, commands);
 
-        if(strncmp(opcao, "b", 1) == 0){
-            printf("\nEntrei no modo de busca\n");
+    while(fim != 0){
+        // printf("\n%s", comando);
+  
+        if(strncmp(comando, "b", 1) == 0){
+            printf("\n--> Entrei no modo de busca\n");
 
-            int final = sizeof(opcao) - 2;
-            char parte[final];
-            memcpy(parte, &opcao[2], final);
+            char chave[TAM_MAX_REG];
+            memcpy(chave, &comando[2], sizeof(chave));
+            chave[6] = '\0';
+            
+            int error = buscaPorChave(chave);
 
-            int error = buscaPorChave(parte);
-
-        }else if(strncmp(opcao, "i", 1) == 0){
+        }else if(strncmp(comando, "i", 1) == 0){
             printf("\nEntrei no modo de insercao\n");
             
-        }else if(strncmp(opcao, "r", 1) == 0){
+        }else if(strncmp(comando, "r", 1) == 0){
             printf("\nEntrei no modo de remocao\n");
             
         }else{
-            if(strncmp(opcao, "0", 1) != 0){
+            if(strncmp(comando, "0", 1) != 0){
                 printf("\nOpcao nao existe, escolha uma das opcoes do menu\n");
             }
         }
 
-    }while (strncmp(opcao, "0", 1) != 0);
+        fim = fgets(comando, TAM_MAX_REG, commands);
+    }
+
+
 
     printf("\nMetodo de execucao finalizado");
 

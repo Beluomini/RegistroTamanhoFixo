@@ -21,11 +21,11 @@ int encontreiRegistro(char * buffer, int tam, char * chave, int numRegister, int
     }
 
     // Lista todos os candidatos
-    // printf("\n%s (RRN = %d - byte-offset %d)", registro, numRegister, binaryAtual);
+    // printf("\n%s (RRN = %d - byte-offset %d)", registro, numRegister, (numRegister*TAM_MAX_REG)+4);
     
-    //Lista o candidato caso a chave seja a mesma que está sendo buscada
+    // //Lista o candidato caso a chave seja a mesma que está sendo buscada
     if(strcmp(chave, chaveAtual) == 0){
-        printf("\n%s (RRN = %d - byte-offset %d)", registro, numRegister, binaryAtual);
+        printf("\n%s (RRN = %d - byte-offset %d)\n", registro, numRegister, (numRegister*TAM_MAX_REG)+4);
         return 0;
     }
 
@@ -33,7 +33,9 @@ int encontreiRegistro(char * buffer, int tam, char * chave, int numRegister, int
 }
 
 int buscaPorChave(char* chave){
-    
+
+    printf("\n-> Busca por chave: %s", chave);
+
     FILE *dadosBinarios;
     if( (dadosBinarios = fopen("dados.dat","rb") ) == NULL ){
         printf("\nAlgo deu errado na leitura do arquivo dados.dat");
@@ -50,12 +52,11 @@ int buscaPorChave(char* chave){
 
     while (existeReg == 1 && encontrouAlgum == 0){
 
+        fseek(dadosBinarios, numRegistro * TAM_MAX_REG, SEEK_SET);
         if(fread(&reg, sizeof(reg), 1, dadosBinarios) == 0){
             existeReg = 0;
         }
 
-        fread(&reg, sizeof(reg), 1, dadosBinarios);
-        fseek(dadosBinarios, numRegistro * TAM_MAX_REG, SEEK_SET);
         registroBuscado = encontreiRegistro(&reg, TAM_MAX_REG, chave, numRegistro, proxRegistro);
 
         if(registroBuscado == 0){

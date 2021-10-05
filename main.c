@@ -18,8 +18,8 @@ int main(int argc, char *argv[]) {
 
     }else if(argc == 3 && strcmp(argv[1], "-e") == 0) {
 
-        printf("Modo de execucao de operacoes ativado ... nome do arquivo = %s\n", argv[2]);
-        execucaoMenu();
+        printf("---> Modo de execucao de operacoes ativado ... nome do arquivo = %s\n", argv[2]);
+        execucaoMenu(argv[2]);
 
         //executa_operacoes(argv[2]);
 
