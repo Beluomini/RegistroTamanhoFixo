@@ -74,11 +74,13 @@ int remocaoPorChave (char *chave){
 
                 encontrouAlgum = 1;
             }
-            proxRegistro += registroBuscado;
+            proxRegistro += 1;
             numRegistro++;
         }
 
     }
+
+    printf("sai do while\n");
 
     if(encontrouAlgum == 0){
         printf("\nNenhum registro compativel com a chave %s\n", chave);

@@ -63,7 +63,7 @@ int importacao(char* dados){
 
     char *cabecalho[sizeof(int)];
 
-    strcpy(cabecalho, "-1");
+    strcpy(cabecalho, "-1..");
 
     fwrite(cabecalho , 1 , sizeof(int) , dadosBinarios);
 
