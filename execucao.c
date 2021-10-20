@@ -5,6 +5,7 @@
 #include "tools.h"
 #include "busca.c"
 #include "remocao.c"
+#include "insercao.c"
 
 int execucaoMenu(char* arq){
     FILE *commands;
@@ -31,6 +32,12 @@ int execucaoMenu(char* arq){
 
         }else if(strncmp(comando, "i", 1) == 0){
             printf("\n--> Entrei no modo de insercao");
+
+            char registro[TAM_MAX_REG];
+            memcpy(registro, &comando[2], sizeof(registro));
+            registro[TAM_MAX_REG] = '\0';
+            
+            int error = insercaoRegistro(registro);
             
         }else if(strncmp(comando, "r", 1) == 0){
             printf("\n--> Entrei no modo de remocao");

@@ -80,8 +80,6 @@ int remocaoPorChave (char *chave){
 
     }
 
-    printf("sai do while\n");
-
     if(encontrouAlgum == 0){
         printf("\nNenhum registro compativel com a chave %s\n", chave);
     }
