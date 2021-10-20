@@ -61,6 +61,12 @@ int importacao(char* dados){
     char reg[TAM_MAX_REG];
     int existeReg = 1;
 
+    char *cabecalho[sizeof(int)];
+
+    strcpy(cabecalho, "-1");
+
+    fwrite(cabecalho , 1 , sizeof(int) , dadosBinarios);
+
     while (existeReg == 1){
         fread(&reg, sizeof(reg), 1, dadosTxt);
         fseek(dadosTxt, proxRegistro * sizeof (char), SEEK_SET);

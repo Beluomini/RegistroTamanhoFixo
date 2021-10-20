@@ -4,6 +4,7 @@
 
 #include "tools.h"
 #include "busca.c"
+#include "remocao.c"
 
 int execucaoMenu(char* arq){
     FILE *commands;
@@ -20,7 +21,7 @@ int execucaoMenu(char* arq){
         // printf("\n%s", comando);
   
         if(strncmp(comando, "b", 1) == 0){
-            printf("\n--> Entrei no modo de busca\n");
+            printf("\n--> Entrei no modo de busca");
 
             char chave[TAM_MAX_REG];
             memcpy(chave, &comando[2], sizeof(chave));
@@ -29,10 +30,16 @@ int execucaoMenu(char* arq){
             int error = buscaPorChave(chave);
 
         }else if(strncmp(comando, "i", 1) == 0){
-            printf("\nEntrei no modo de insercao\n");
+            printf("\n--> Entrei no modo de insercao");
             
         }else if(strncmp(comando, "r", 1) == 0){
-            printf("\nEntrei no modo de remocao\n");
+            printf("\n--> Entrei no modo de remocao");
+
+            char chave[TAM_MAX_REG];
+            memcpy(chave, &comando[2], sizeof(chave));
+            chave[6] = '\0';
+            
+            int error = remocaoPorChave(chave);
             
         }else{
             if(strncmp(comando, "0", 1) != 0){

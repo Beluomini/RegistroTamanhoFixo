@@ -52,18 +52,19 @@ int buscaPorChave(char* chave){
 
     while (existeReg == 1 && encontrouAlgum == 0){
 
-        fseek(dadosBinarios, numRegistro * TAM_MAX_REG, SEEK_SET);
+        fseek(dadosBinarios, numRegistro * TAM_MAX_REG + sizeof(int), SEEK_SET);
         if(fread(&reg, sizeof(reg), 1, dadosBinarios) == 0){
             existeReg = 0;
+        }else{
+            registroBuscado = encontreiRegistro(&reg, TAM_MAX_REG, chave, numRegistro, proxRegistro);
+
+            if(registroBuscado == 0){
+                encontrouAlgum = 1;
+            }
+            proxRegistro += registroBuscado;
+            numRegistro++;
         }
 
-        registroBuscado = encontreiRegistro(&reg, TAM_MAX_REG, chave, numRegistro, proxRegistro);
-
-        if(registroBuscado == 0){
-            encontrouAlgum = 1;
-        }
-        proxRegistro += registroBuscado;
-        numRegistro++;
     }
 
     if(encontrouAlgum == 0){
