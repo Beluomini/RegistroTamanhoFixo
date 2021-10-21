@@ -32,6 +32,8 @@ int verificaVazio(char* dados){
         // acabou os registros
         return 0;
     }
+
+    fclose(dadosTxt);
     return 1;
 }
 

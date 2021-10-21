@@ -23,17 +23,26 @@ int insercaoRegistro (char *buffer){
         exit(EXIT_FAILURE);
     }
 
-    char * topo[sizeof(int)];
-    
+    char topo[sizeof(int)];
     fseek(dadosBinarios, 0, SEEK_SET);
     fread(topo, sizeof(int), 1, dadosBinarios);
+
 
     if(topo[0] == '-'){
         fseek(dadosBinarios, 0, SEEK_END);
         fwrite(registro, TAM_MAX_REG, 1, dadosBinarios);
         printf("\nLocal: fim do arquivo\n");
     }else{
-        
+        int topoInt = atoi(topo);
+        fseek(dadosBinarios, topoInt * TAM_MAX_REG + sizeof(int), SEEK_SET);
+        fread(topo, sizeof(int), 1, dadosBinarios);
+
+        fseek(dadosBinarios, topoInt * TAM_MAX_REG + sizeof(int), SEEK_SET);
+        fwrite(registro, TAM_MAX_REG, 1, dadosBinarios);
+        printf("\nLocal: RRN = %d (byte-offset %d) [reutilizado]\n", topoInt, topoInt * TAM_MAX_REG + sizeof(int));
+
+        fseek(dadosBinarios, 0, SEEK_SET);
+        fwrite(topo, sizeof(int), 1, dadosBinarios);
     }
 
     fclose(dadosBinarios);
