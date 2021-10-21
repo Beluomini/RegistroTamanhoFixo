@@ -4,6 +4,7 @@
 
 #include "importacao.c"
 #include "execucao.c"
+#include "imprimePed.c"
 
 int main(int argc, char *argv[]) {
 
@@ -21,12 +22,10 @@ int main(int argc, char *argv[]) {
         printf("---> Modo de execucao de operacoes ativado ... nome do arquivo = %s\n", argv[2]);
         execucaoMenu(argv[2]);
 
-        //executa_operacoes(argv[2]);
-
     } else if (argc == 2 && strcmp(argv[1], "-p") == 0) {
 
         printf("Modo de impressao da PED ativado ...\n");
-        //imprime_ped();
+        imprimePed();
 
     } else {
 

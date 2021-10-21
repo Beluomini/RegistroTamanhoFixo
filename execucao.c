@@ -57,7 +57,7 @@ int execucaoMenu(char* arq){
         fim = fgets(comando, TAM_MAX_REG, commands);
     }
 
-
+    fclose(commands);
 
     printf("\nMetodo de execucao finalizado");
 
